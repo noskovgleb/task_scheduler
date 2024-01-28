@@ -1,0 +1,12 @@
+<tr id="<%= dom_id task %>">
+  <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+    <%= link_to task.due_date.strftime("%-d %B, %Y %l:%M%P"), edit_task_path(task) %>
+  </td>
+
+  <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap"><%= link_to link_to task.title, edit_task_path(task) %></td>
+  <td class="px-4 py-4 text-sm font-medium  whitespace-nowrap">
+      <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 <%= priority_style(task) %>">
+          <h2 class="text-sm font-normal"><%= task.priority.humanize %></h2>
+      </div>
+  </td>
+</tr>
