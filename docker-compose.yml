@@ -12,6 +12,8 @@ x-app: &app
     - rails_cache:/app/tmp/cache
     - bundler_gems:/usr/local/bundle
   restart: on-failure
+  environment:
+    REDIS_URL: redis://redis:6379/1
 
 services:
   db:
@@ -32,6 +34,7 @@ services:
       - '3000:3000'
     depends_on:
       - db
+      - redis
     stdin_open: true
     tty: true
 
@@ -42,8 +45,32 @@ services:
   css:
     <<: *app
     command: yarn build:css --watch
+
+  sidekiq:
+    <<: *app
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - bundler_gems:/usr/lib/bundle/
+    depends_on:
+      - redis
+      - web
+
+  redis:
+    image: 'redis:7.0-alpine'
+    command: redis-server
+    volumes:
+      - redis:/data
+    ports:
+      - '6379:6379'
+
+  mailcatcher:
+    image: dockage/mailcatcher
+    ports:
+      - "1025:1025"
+      - "1080:1080"
 volumes:
   postgres:
   bundler_gems:
   node_modules:
   rails_cache:
+  redis:

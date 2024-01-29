@@ -1,0 +1,13 @@
+:concurrency: 2
+:queues:
+  - default
+
+:scheduler:
+  :dynamic: true
+  :schedule:
+    due_notification:
+      cron: '0 * * * * *'
+      class: DueDateNotification
+    overdue_notification:
+      cron: '0 * * * * *'
+      class: OverdueDateNotification

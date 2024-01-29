@@ -55,7 +55,6 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
@@ -71,3 +70,6 @@ end
 
 gem "devise", "~> 4.9"
 gem "kaminari"
+
+gem "sidekiq", "~> 7.2"
+gem "sidekiq-scheduler", "~> 5.0"
